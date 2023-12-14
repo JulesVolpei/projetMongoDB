@@ -71,9 +71,11 @@ const useStyles = makeStyles({
         padding: "0 0.25rem 0",
     },
     elementsBox: {
-        backgroundColor: '#fff',
+        backgroundColor: '#e2ac6c',
+        color: '#ab3833',
+        borderRadius: '7px',
         '&:hover': {
-            backgroundColor: '#dcdcdc',
+            backgroundColor: '#bd905b',
             opacity: [0.9, 0.8, 0.7],
         },
     },
@@ -81,7 +83,7 @@ const useStyles = makeStyles({
         display: 'block',
         height: '1px',
         border: '0',
-        borderTop: '1px solid black',
+        borderTop: '0px solid #fff',
         margin: '0.25em 0',
         padding: '0',
     },

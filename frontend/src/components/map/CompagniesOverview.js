@@ -23,7 +23,7 @@ const useStyles = makeStyles({
         borderRadius: '15px',
         overflow: 'hidden',
         border: '1px solid #000',
-        padding: '0.25rem',
+        marginLeft: '2rem',
     },
     companiesList: {
         padding: "0 0.25rem 0 !important",
