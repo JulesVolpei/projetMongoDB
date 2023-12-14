@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 import motor.motor_asyncio
-from model import (Adresse, Localisation, RessourcesHumaines, Contacts, Chantier, Horaires, Entreprise)
+from model import (Entreprise)
 
 load_dotenv()
 mongodb_uri = os.getenv("MONGODB_URI")
@@ -12,12 +12,16 @@ collection = database.entreprises
 
 async def fetch_one_entreprise(nom):
     document = await collection.find_one({"nom": nom})
-    return document
+    if document:
+        document['_id'] = str(document.get('_id')) 
+        return Entreprise(**document)
+    return None
 
 async def fetch_all_entreprises():
     entreprises = []
     cursor = collection.find({})
     async for document in cursor:
+        document['_id'] = str(document.get('_id'))
         entreprises.append(Entreprise(**document))
     return entreprises
 
