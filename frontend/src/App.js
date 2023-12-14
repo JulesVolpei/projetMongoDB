@@ -7,7 +7,6 @@ import Footer from "./components/screens/Footer";
 function App() {
   return (
       <>
-        <p>nnnnnnnnnnnnnnn</p>
         <Intro/>
         <CompaniesOverview/>
         <CompaniesDetails/>

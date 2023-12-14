@@ -1,6 +1,6 @@
 import Grid from "@mui/material/Unstable_Grid2";
 
-const CompanieDetail = () => {
+const CompanyDetail = () => {
     return(
         <Grid>
 
@@ -8,4 +8,4 @@ const CompanieDetail = () => {
     );
 }
 
-export default CompanieDetail;
+export default CompanyDetail;

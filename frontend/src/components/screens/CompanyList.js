@@ -4,7 +4,7 @@ import {makeStyles} from "@mui/styles";
 import useGET from "../../hooks/useGET";
 import {useEffect, useState} from "react";
 
-const CompanieList = () => {
+const CompanyList = () => {
     const [response, setUrl] = useGET("");
     const [companiesOverview, setCompaniesOverview] = useState([]);
 
@@ -74,4 +74,4 @@ const useStyles = makeStyles({
     },
 })
 
-export default CompanieList;
+export default CompanyList;

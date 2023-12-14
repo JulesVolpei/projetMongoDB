@@ -1,5 +1,5 @@
 import Map from "./Map";
-import CompanieList from "../screens/CompagnieList";
+import CompanyList from "../screens/CompanyList";
 import Grid from "@mui/material/Unstable_Grid2";
 import {makeStyles} from "@mui/styles";
 
@@ -9,7 +9,7 @@ const CompaniesOverview = () => {
     return (
         <Grid container className={classes.container}>
             <Grid item xs={3} className={classes.companiesList}>
-                <CompanieList />
+                <CompanyList />
             </Grid>
             <Grid item xs={9}>
                 <Map />
