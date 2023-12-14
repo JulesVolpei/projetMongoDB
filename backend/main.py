@@ -1,13 +1,18 @@
 from fastapi import FastAPI, HTTPException
 from typing import List 
-from model import (Adresse, Localisation, RessourcesHumaines, Contacts, Chantier, Horaires, Entreprise)
+from model import (Adresse, Localisation, RessourcesHumaines, Contacts, Chantier, Horaires, Entreprise, Commentaire)
 
 from database import (
     fetch_one_entreprise,
     fetch_all_entreprises,
     create_entreprise,
     update_entreprise,
-    remove_entreprise
+    remove_entreprise,
+    fetch_all_comments_of_entreprise,
+    create_commentaire,
+    fetch_comments_by_author,
+    update_commentaire,
+    remove_commentaire
 )
 
 from fastapi.middleware.cors import CORSMiddleware
@@ -39,14 +44,14 @@ async def get_entreprise_by_nom(nom):
     response = await fetch_one_entreprise(nom)
     if response:
         return response
-    raise HTTPException(404, f"There is no entreprise with the name {nom}")
+    raise HTTPException(404, f"Il n'y a pas d'entreprise avec le nom {nom}.")
 
 @app.post("/api/entreprise/")
 async def post_entreprise(entreprise: Entreprise):
     response = await create_entreprise(entreprise)
     if response:
         return response
-    raise HTTPException(400, "Something went wrong")
+    raise HTTPException(400, "Une erreur est survenue.")
 
 @app.put("/api/entreprise/{nom}/")
 async def put_entreprise(nom: str, adresse: Adresse, localisation: Localisation, ressourcesHumaines: RessourcesHumaines,
@@ -54,11 +59,47 @@ async def put_entreprise(nom: str, adresse: Adresse, localisation: Localisation,
     response = await update_entreprise(nom, adresse, localisation, ressourcesHumaines, contacts, chantiers, horaires, services)
     if response:
         return response
-    raise HTTPException(404, f"There is no entreprise with the name {nom}")
+    raise HTTPException(404, f"Il n'y a pas d'entreprise avec le nom {nom}.")
 
 @app.delete("/api/entreprise/{nom}")
 async def delete_entreprise(nom):
     response = await remove_entreprise(nom)
     if response:
-        return "Successfully deleted entreprise"
-    raise HTTPException(404, f"There is no entreprise with the name {nom}")
+        return "Entreprise supprimé."
+    raise HTTPException(404, f"Il n'y a pas d'entreprise avec le nom {nom}.")
+
+@app.get("/api/commentaire/{entreprise_nom}/{auteur}")
+async def get_commentaires_by_author(entreprise_nom: str, auteur: str):
+    response = await fetch_comments_by_author(entreprise_nom,auteur)
+    if response:
+        return response
+    raise HTTPException(404, f"Aucun commentaire trouvé pour l'entreprise {entreprise_nom} par l'auteur {auteur}.")
+
+@app.get("/api/commentaire/{entreprise_nom}")
+async def get_commentaires_of_entreprise(entreprise_nom: str):
+    response = await fetch_all_comments_of_entreprise(entreprise_nom)
+    if response:
+        return response
+    raise HTTPException(404, f"Aucun commentaire trouvé pour l'entreprise {entreprise_nom}.")
+
+@app.post("/api/commentaire/")
+async def post_commentaire(commentaire: Commentaire):
+    response = await create_commentaire(commentaire)
+    if response:
+        return response
+    raise HTTPException(400, "Une erreur est survenue lors de l'insertion.")
+
+@app.put("/api/commentaire/{entreprise_nom}/{auteur}/{ancienContenu}")
+async def put_commentaire(entreprise_nom: str, auteur: str, ancienContenu: str, nouveau_contenu: str):
+    success = await update_commentaire(entreprise_nom, auteur, ancienContenu, nouveau_contenu)
+    if success:
+        return "Commentaire mis à jour avec succès."
+    raise HTTPException(404, f"Aucun commentaire trouvé pour l'auteur {auteur} dans l'entreprise {entreprise_nom}.")
+
+@app.delete("/api/commentaire/{entreprise_nom}/{auteur}")
+async def delete_commentaire(entreprise_nom: str, auteur: str):
+    response = await remove_commentaire(entreprise_nom, auteur)
+    if response:
+        return "Commentaire supprimé."
+    raise HTTPException(404, f"Aucun commentaire trouvé pour l'auteur {auteur} dans l'entreprise {entreprise_nom}.")
+

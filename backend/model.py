@@ -2,6 +2,7 @@ from datetime import datetime
 from pydantic import BaseModel
 from typing import List,Optional
 
+# Collection Entreprises
 class Adresse(BaseModel):
     numero: int
     voie: str
@@ -44,3 +45,11 @@ class Entreprise(BaseModel):
     chantiers: List[Chantier]
     horaires: List[Horaires]
     services: List[str]
+
+# Collections Commentaires
+class Commentaire(BaseModel):
+    entrepriseNom: str
+    auteur: str
+    contenu: str
+    dateCreation: datetime
+    note: int
