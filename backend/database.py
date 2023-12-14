@@ -82,3 +82,12 @@ async def update_commentaire(entreprise_nom, auteur, ancienContenu, nouveau_cont
 async def remove_commentaire(entreprise_nom, auteur):
     result = commentaire_collection.delete_many({"entrepriseNom": entreprise_nom, "auteur": auteur})
     return True
+
+# Lien collection Commentaires & Entreprises
+async def average_rating_for_entreprise(entreprise_nom):
+    pipeline = [
+        {"$match": {"entrepriseNom": entreprise_nom}},
+        {"$group": {"_id": None, "averageRating": {"$avg": "$note"}}}
+    ]
+    result = await commentaire_collection.aggregate(pipeline).to_list(1)
+    return result[0]['averageRating'] if result else None

@@ -12,7 +12,8 @@ from database import (
     create_commentaire,
     fetch_comments_by_author,
     update_commentaire,
-    remove_commentaire
+    remove_commentaire,
+    average_rating_for_entreprise
 )
 
 from fastapi.middleware.cors import CORSMiddleware
@@ -103,3 +104,10 @@ async def delete_commentaire(entreprise_nom: str, auteur: str):
         return "Commentaire supprimé."
     raise HTTPException(404, f"Aucun commentaire trouvé pour l'auteur {auteur} dans l'entreprise {entreprise_nom}.")
 
+# Lien collection Commentaires & Entreprises
+@app.get("/api/entreprise/moyenne_note/{nom}")
+async def get_average_rating_for_entreprise(nom: str):
+    average_rating = await average_rating_for_entreprise(nom)
+    if average_rating is not None:
+        return {"entrepriseNom": nom, "moyenneNote": average_rating}
+    raise HTTPException(404, f"L'entreprise {nom} n'a aucune note.")
