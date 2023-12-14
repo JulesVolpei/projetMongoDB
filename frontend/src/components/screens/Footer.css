@@ -1,10 +1,9 @@
-/* Footer.css */
-
 .site-footer {
-    background-color: #ab3833; /* Reprend la couleur du header pour une cohérence visuelle */
+    background-color: #ab3833;
     color: #e2ac6c;
     padding: 15px 0;
     text-align: center;
+    margin-top: auto;
 }
 
 .footer-bottom {

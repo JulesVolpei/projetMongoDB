@@ -1,7 +1,5 @@
-/* Intro.css */
-
 .intro-header {
-    background-color: #ab3833; /* Vert associé au BTP */
+    background-color: #ab3833;
     padding: 15px;
     display: flex;
     justify-content: space-between;

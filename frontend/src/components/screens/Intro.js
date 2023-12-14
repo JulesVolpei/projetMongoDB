@@ -1,5 +1,3 @@
-// Intro.js
-
 import React from 'react';
 import './Intro.css'; // Assure-toi de créer un fichier Intro.css pour y définir les styles
 
