@@ -5,6 +5,7 @@ from model import (Adresse, Localisation, RessourcesHumaines, Contacts, Chantier
 from database import (
     fetch_one_entreprise,
     fetch_all_entreprises,
+    fetch_entreprises_within_radius,
     create_entreprise,
     update_entreprise,
     remove_entreprise,
@@ -46,6 +47,20 @@ async def get_entreprise_by_nom(nom):
     if response:
         return response
     raise HTTPException(404, f"Il n'y a pas d'entreprise avec le nom {nom}.")
+
+@app.get("/api/entreprises/{latitude}/{longitude}/{radius}")
+async def get_entreprises_within_radius(latitude: float, longitude: float, radius: int):
+    entreprises = await fetch_entreprises_within_radius(latitude, longitude, radius)
+    if entreprises:
+        for document in entreprises:
+            distance_meters = document.get("distance", 0)
+            distance_kilometers = distance_meters / 1000
+            rounded_distance = round(distance_kilometers, 2)
+            document["distance"] = rounded_distance
+        return entreprises
+    raise HTTPException(404, "Aucune entreprise trouvée dans le rayon spécifié.")
+
+
 
 @app.post("/api/entreprise/")
 async def post_entreprise(entreprise: Entreprise):
@@ -111,3 +126,4 @@ async def get_average_rating_for_entreprise(nom: str):
     if average_rating is not None:
         return {"entrepriseNom": nom, "moyenneNote": average_rating}
     raise HTTPException(404, f"L'entreprise {nom} n'a aucune note.")
+
