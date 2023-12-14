@@ -1,0 +1,12 @@
+/* Footer.css */
+
+.site-footer {
+    background-color: #ab3833; /* Reprend la couleur du header pour une cohérence visuelle */
+    color: #e2ac6c;
+    padding: 15px 0;
+    text-align: center;
+}
+
+.footer-bottom {
+    font-size: 14px;
+}
