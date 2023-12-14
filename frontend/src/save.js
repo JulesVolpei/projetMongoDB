@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import axios from 'axios';
 import L from 'leaflet';
-import mapMarkerIcon from './mapmarker.png'; // Assurez-vous que le chemin est correct
+import mapMarkerIcon from './components/map/mapmarker.png'; // Assurez-vous que le chemin est correct
 
 function App() {
     const [entrepriseData, setEntrepriseData] = useState([]);
