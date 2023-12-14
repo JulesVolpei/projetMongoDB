@@ -45,9 +45,9 @@ const Map = () => {
                         <Popup>
                             <a><strong>{entreprise.nom}</strong></a>
                             <br />
-                            {`Directeur: ${entreprise.ressourcesHumaines.directeur}`}
+                            {`Directeur : ${entreprise.ressourcesHumaines.directeur}`}
                             <br />
-                            {`Nombre d'employés: ${entreprise.ressourcesHumaines.nombreEmployes}`}
+                            {`Contacter : ${entreprise.contacts.telephone}`}
                         </Popup>
                     </Marker>
                 ))}
