@@ -29,7 +29,7 @@ const Map = () => {
 
     return (
         <div className="App">
-            <MapContainer center={[47.23634959915227, -1.5672333293399752]} zoom={16} style={{ height: '400px', width: '600px' }}>
+            <MapContainer center={[47.23634959915227, -1.5672333293399752]} zoom={16} style={{ height: '26rem', width: 'auto' }}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -45,9 +45,9 @@ const Map = () => {
                         <Popup>
                             <a><strong>{entreprise.nom}</strong></a>
                             <br />
-                            {`Directeur: ${entreprise.ressourcesHumaines.directeur}`}
+                            {`Directeur : ${entreprise.ressourcesHumaines.directeur}`}
                             <br />
-                            {`Nombre d'employés: ${entreprise.ressourcesHumaines.nombreEmployes}`}
+                            {`Contacter : ${entreprise.contacts.telephone}`}
                         </Popup>
                     </Marker>
                 ))}
