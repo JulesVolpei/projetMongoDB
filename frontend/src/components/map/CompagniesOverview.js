@@ -27,7 +27,7 @@ const useStyles = makeStyles({
         '&.css-1pi8xg4-MuiGrid2-root': {
             margin: '2rem', // Remplace le style généré par @material-ui/core
         },
-        boxShadow: '0px 3px 3px -2px rgba(0,0,0,0.2), 0px 3px 4px 0px rgba(0,0,0,0.14), 0px 1px 8px 0px rgba(0,0,0,0.12)',
+        boxShadow: '0px 0px 50px 2px rgba(0,0,0,0.35)',
     },
     companiesList: {
         padding: "0 0.25rem 0 !important",
