@@ -1,7 +1,7 @@
 import Map from "./Map";
 import CompanyList from "../screens/CompanyList";
 import Grid from "@mui/material/Unstable_Grid2";
-import {makeStyles} from "@mui/styles";
+import {makeStyles} from "@material-ui/core/styles";
 
 const CompaniesOverview = () => {
     const classes = useStyles();

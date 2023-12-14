@@ -1,6 +1,6 @@
 import Grid from "@mui/material/Unstable_Grid2";
 import Box from '@mui/material/Box';
-import {makeStyles} from "@mui/styles";
+import {makeStyles} from "@material-ui/core/styles";
 import useGET from "../../hooks/useGET";
 import {useEffect, useState} from "react";
 
@@ -32,9 +32,9 @@ const CompanyList = () => {
     return (
         <>
             {dummy.map((item) => (
-                <Grid xs={12} className={classes.elementsBox}>
+                <Grid key={item.id} xs={12} className={classes.elementsBox}>
                     <div className={classes.lineSep}></div>
-                    <Box id={item.id} sx={{textTransform: 'uppercase'}}>
+                    <Box sx={{textTransform: 'uppercase'}}>
                         {item.name}
                     </Box>
                     <Box xs={12} className={classes.activityStyle}>
