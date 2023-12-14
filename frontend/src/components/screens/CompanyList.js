@@ -48,7 +48,7 @@ const CompanyList = () => {
     return (
         <>
             {entrepriseData.map((entreprise, index) => (
-                <Grid key={entreprise.nom} xs={12} className={classes.elementsBox}>
+                <a href={entreprise.nom} className={classes.navLinksA}><Grid key={entreprise.nom} xs={12} className={classes.elementsBox}>
                     <div className={classes.lineSep}></div>
                     <Box sx={{textTransform: 'uppercase'}}>
                         {entreprise.nom}
@@ -60,7 +60,7 @@ const CompanyList = () => {
                         {entreprise.contacts.telephone}
                     </Box>
                     <div className={classes.lineSep}></div>
-                </Grid>
+                </Grid></a>
             ))}
         </>
     );
@@ -81,6 +81,9 @@ const useStyles = makeStyles({
         '&.css-16fnxy3-MuiGrid2-root' : {
             padding: '0 0 0 0.5rem',
         },
+    },
+    navLinksA: {
+        textDecoration: 'none',
     },
     lineSep: {
         display: 'block',

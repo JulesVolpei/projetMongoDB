@@ -43,7 +43,7 @@ const Map = () => {
                         icon={customIcon}
                     >
                         <Popup>
-                            <a><strong>{entreprise.nom}</strong></a>
+                            <a href={entreprise.nom}><strong>{entreprise.nom}</strong></a>
                             <br />
                             {`Directeur : ${entreprise.ressourcesHumaines.directeur}`}
                             <br />
