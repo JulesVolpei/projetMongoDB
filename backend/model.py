@@ -1,6 +1,6 @@
 from datetime import datetime
 from pydantic import BaseModel
-from typing import List
+from typing import List,Optional
 
 class Adresse(BaseModel):
     numero: int
@@ -26,8 +26,8 @@ class Chantier(BaseModel):
     coutTotal: float
     facturation: float
     nombreOuvriers: int
-    dateDebut: datetime  # Utilisation de DateTime au lieu de str
-    dateFin: datetime    # Utilisation de DateTime au lieu de str
+    dateDebut: datetime 
+    dateFin: Optional[datetime]
     services: List[str]
 
 class Horaires(BaseModel):
