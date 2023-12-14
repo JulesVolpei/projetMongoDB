@@ -1,7 +1,12 @@
+import os
+from dotenv import load_dotenv
 import motor.motor_asyncio
 from model import (Adresse, Localisation, RessourcesHumaines, Contacts, Chantier, Horaires, Entreprise)
 
-client = motor.motor_asyncio.AsyncIOMotorClient('mongodb+srv://axolt:jesaispas@cluster0.pntqvhk.mongodb.net/?retryWrites=true&w=majority')
+load_dotenv()
+mongodb_uri = os.getenv("MONGODB_URI")
+
+client = motor.motor_asyncio.AsyncIOMotorClient(mongodb_uri)
 database = client.project
 collection = database.entreprises
 
