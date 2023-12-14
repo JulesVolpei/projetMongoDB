@@ -2,7 +2,7 @@ import React from 'react';
 import './Intro.css';
 
 const Intro = () => {
-    return (
+    return(
         <header className="intro-header">
             <h1 className="logo">MongoDbtp</h1>
             <nav className="nav-links">
