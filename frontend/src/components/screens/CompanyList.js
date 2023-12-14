@@ -78,6 +78,9 @@ const useStyles = makeStyles({
             backgroundColor: '#bd905b',
             opacity: [0.9, 0.8, 0.7],
         },
+        '&.css-16fnxy3-MuiGrid2-root' : {
+            padding: '0 0 0 0.5rem',
+        },
     },
     lineSep: {
         display: 'block',

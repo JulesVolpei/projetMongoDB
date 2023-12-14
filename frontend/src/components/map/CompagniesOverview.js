@@ -22,8 +22,12 @@ const useStyles = makeStyles({
     container: {
         borderRadius: '15px',
         overflow: 'hidden',
-        border: '1px solid #000',
+        border: '0px solid #000',
         marginLeft: '2rem',
+        '&.css-1pi8xg4-MuiGrid2-root': {
+            margin: '2rem', // Remplace le style généré par @material-ui/core
+        },
+        boxShadow: '0px 3px 3px -2px rgba(0,0,0,0.2), 0px 3px 4px 0px rgba(0,0,0,0.14), 0px 1px 8px 0px rgba(0,0,0,0.12)',
     },
     companiesList: {
         padding: "0 0.25rem 0 !important",
