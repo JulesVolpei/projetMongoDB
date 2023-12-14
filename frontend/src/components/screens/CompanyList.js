@@ -1,8 +1,9 @@
 import Grid from "@mui/material/Unstable_Grid2";
 import Box from '@mui/material/Box';
-import {makeStyles} from "@mui/styles";
+import {makeStyles} from "@material-ui/core/styles";
 import useGET from "../../hooks/useGET";
 import {useEffect, useState} from "react";
+import axios from "axios";
 
 const CompanyList = () => {
     const [response, setUrl] = useGET("");
@@ -29,19 +30,34 @@ const CompanyList = () => {
     const classes = useStyles();
     const dummy = [{name: 'heelo', activity: "bois", address: 'la bas'}, {name: 'coucocu', activity: "plombier", address: 'pas loin'}];
 
+    const [entrepriseData, setEntrepriseData] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://127.0.0.1:8000/api/entreprise');
+                setEntrepriseData(response.data);
+            } catch (error) {
+                console.error('Erreur lors de la récupération des données :', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
     return (
         <>
-            {dummy.map((item) => (
-                <Grid xs={12} className={classes.elementsBox}>
+            {entrepriseData.map((entreprise, index) => (
+                <Grid key={entreprise.nom} xs={12} className={classes.elementsBox}>
                     <div className={classes.lineSep}></div>
-                    <Box id={item.id} sx={{textTransform: 'uppercase'}}>
-                        {item.name}
+                    <Box sx={{textTransform: 'uppercase'}}>
+                        {entreprise.nom}
                     </Box>
                     <Box xs={12} className={classes.activityStyle}>
-                        {item.activity}
+                        {entreprise.ressourcesHumaines.directeur}
                     </Box>
                     <Box xs={12}>
-                        {item.address}
+                        {entreprise.contacts.telephone}
                     </Box>
                     <div className={classes.lineSep}></div>
                 </Grid>
@@ -55,17 +71,22 @@ const useStyles = makeStyles({
         padding: "0 0.25rem 0",
     },
     elementsBox: {
-        backgroundColor: '#fff',
+        backgroundColor: '#e2ac6c',
+        color: '#ab3833',
+        borderRadius: '7px',
         '&:hover': {
-            backgroundColor: '#dcdcdc',
+            backgroundColor: '#bd905b',
             opacity: [0.9, 0.8, 0.7],
+        },
+        '&.css-16fnxy3-MuiGrid2-root' : {
+            padding: '0 0 0 0.5rem',
         },
     },
     lineSep: {
         display: 'block',
         height: '1px',
         border: '0',
-        borderTop: '1px solid black',
+        borderTop: '0px solid #fff',
         margin: '0.25em 0',
         padding: '0',
     },
