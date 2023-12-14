@@ -1,8 +1,8 @@
 import React from 'react';
-import './Intro.css'; // Assure-toi de créer un fichier Intro.css pour y définir les styles
+import './Intro.css';
 
 const Intro = () => {
-    return (
+    return(
         <header className="intro-header">
             <h1 className="logo">MongoDbtp</h1>
             <nav className="nav-links">
