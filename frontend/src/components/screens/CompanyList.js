@@ -3,8 +3,25 @@ import Box from '@mui/material/Box';
 import {makeStyles} from "@material-ui/core/styles";
 import useGET from "../../hooks/useGET";
 import {useEffect, useState} from "react";
+import axios from "axios";
 
 const CompanyList = () => {
+
+    const [entrepriseData, setEntrepriseData] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://127.0.0.1:8000/api/entreprise');
+                setEntrepriseData(response.data);
+            } catch (error) {
+                console.error('Erreur lors de la récupération des données :', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
     const [response, setUrl] = useGET("");
     const [companiesOverview, setCompaniesOverview] = useState([]);
 
@@ -31,17 +48,17 @@ const CompanyList = () => {
 
     return (
         <>
-            {dummy.map((item) => (
-                <Grid key={item.id} xs={12} className={classes.elementsBox}>
+            {entrepriseData.map((entreprise, index) => (
+                <Grid key={entreprise.nom} xs={12} className={classes.elementsBox}>
                     <div className={classes.lineSep}></div>
                     <Box sx={{textTransform: 'uppercase'}}>
-                        {item.name}
+                        {entreprise.nom}
                     </Box>
                     <Box xs={12} className={classes.activityStyle}>
-                        {item.activity}
+                        {entreprise.ressourcesHumaines.directeur}
                     </Box>
                     <Box xs={12}>
-                        {item.address}
+                        {entreprise.contacts.telephone}
                     </Box>
                     <div className={classes.lineSep}></div>
                 </Grid>
