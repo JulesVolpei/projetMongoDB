@@ -27,6 +27,26 @@ async def fetch_all_entreprises():
         entreprises.append(Entreprise(**document))
     return entreprises
 
+async def fetch_entreprises_within_radius(latitude, longitude, radius):
+    pipeline = [
+        {
+            "$geoNear": {
+                "near": {"type": "Point", "coordinates": [latitude, longitude]},
+                "distanceField": "distance",
+                "spherical": True,
+                "maxDistance": radius*1000,
+                "query": {},
+            }
+        }
+    ]
+    cursor = await entreprise_collection.aggregate(pipeline).to_list(None)
+    for document in cursor:
+        document['_id'] = str(document.get('_id'))
+
+    return cursor
+
+
+
 async def create_entreprise(entreprise):
     document = entreprise.dict()
     result = await entreprise_collection.insert_one(document)
