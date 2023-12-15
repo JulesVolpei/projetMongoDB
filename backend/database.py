@@ -67,8 +67,7 @@ async def update_entreprise(nom, adresse, localisation, ressourcesHumaines, cont
             }
         }
     )
-    document = await entreprise_collection.find_one({"nom": nom})
-    return document
+    return True
 
 async def remove_entreprise(nom):
     await entreprise_collection.delete_one({"nom": nom})
