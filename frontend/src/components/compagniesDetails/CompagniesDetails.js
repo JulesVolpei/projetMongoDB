@@ -3,59 +3,37 @@ import ConstructionSiteDetails from "./ConstructionSiteDetails";
 import CommentDetails from "./CommentDetails";
 import {Button, Card, CardContent} from "@mui/material";
 import Grid from "@mui/material/Grid";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import useGET from "../../hooks/useGET";
 
 
-const CompaniesDetails = () => {
-    const enterprise = {
-        nom: 'chez moi',
-        adresse: { "numero": 3, "voie": "Route de la Garenne", "codePostal": 44700, "ville": "Nantes"},
-        localisation: [6.4896, 3.646464],
-        ressourcesHumaines: {directeur: 'moi evidement', nombreEmployes: 12, nombreOuvriers: 5},
-        contacts: {telephone: '0645478998', mail: 'raf@tg.com'},
-        horaires: [{"jour": "lundi", "debut": 9, "fin": 19}, {"jour": "mardi", "debut": 9, "fin": 19}],
-        services: ["Rénovation de salles de bain", "Terrasses et patios", "Fondations et béton", "Toiture", "Rénovation de cuisines"],
-    };
+const CompaniesDetails = (props) => {
+    const [responseEnterprise, setUrlEnterprise] = useGET('');
+    const [responseComments, setUrlComments] = useGET('');
 
-    const constructionsSite = [
-        {
-            chef: "Bernard Beaucoupdemarteau",
-            coutTotal: 3000,
-            facturation: 12000,
-            nombreOuvriers: 5,
-            dateDebut: "2020-02-21T00:00:00",
-            dateFin: "2020-04-28T00:00:00",
-            services: ["Toitures", "Rénovation de salles de bain"]
-        },
-        {
-            chef: "Henry Guillaume",
-            coutTotal: 7000,
-            facturation: 40000,
-            nombreOuvriers: 11,
-            dateDebut: "2020-07-11T00:00:00",
-            dateFin: null,
-            services: ["Toitures", "Terrasses et patios", "Fondations et béton"]
+    const [enterprise, setEntreprise] = useState({});
+    const [constructionsSite, setConstructionsSite] = useState([]);
+    const [comments, setComments] = useState([]);
+
+    useEffect(() => {
+        setUrlEnterprise({api: `api/entreprise/${props.companyName}`})
+        setUrlComments({api: `api/commentaire/${props.companyName}`})
+    }, [props.companyName]);
+
+    useEffect(() => {
+        if (responseEnterprise !== undefined) {
+            setEntreprise(responseEnterprise);
+            setConstructionsSite(responseEnterprise.chantiers);
+        } else {
+            setEntreprise({});
+            setConstructionsSite([]);
         }
-    ]
-
-    const comments = [{
-            "entrepriseNom": "Lihon BTP Corporation",
-            "auteur": "Adam Pacool",
-            "contenu": "Ma femme a fait appel à cette entreprise pour de simples problèmes de toiture ... Bonjour les dégâts !",
-            "dateCreation": new Date("2020-05-11"),
-            "note": 1
-        },
-        {
-            "entrepriseNom": "Lihon BTP Corporation",
-            "auteur": "François Lihon",
-            "contenu": null,
-            "dateCreation": new Date("2020-02-10"),
-            "note": 5
-        }
-    ]
+        if (responseComments !== undefined) {
+            setComments(responseComments);
+        } else setComments([])
+    }, [responseEnterprise, responseComments]);
 
     const [selectedComponent, setSelectedComponent] = useState('company');
-
     const renderComponent = () => {
         switch (selectedComponent) {
             case 'company':
@@ -63,7 +41,7 @@ const CompaniesDetails = () => {
             case 'construction':
                 return <ConstructionSiteDetails constructionsSite={constructionsSite} />;
             case 'comments':
-                return <CommentDetails comments={comments} />;
+                return <CommentDetails comments={comments} companyName={props.companyName}/>;
             default:
                 return null;
         }
@@ -85,7 +63,7 @@ const CompaniesDetails = () => {
                         </Button>
                     </Grid>
                     <Grid item xs={12} sm={10} sx={{ display: 'flex', justifyContent: 'center' }}>
-                        {renderComponent()}
+                        {Object.keys(enterprise).length > 0 && renderComponent()}
                     </Grid>
                 </Grid>
             </CardContent>

@@ -9,7 +9,6 @@ function App() {
       <>
         <Intro/>
         <CompaniesOverview/>
-        <CompaniesDetails/>
         <Footer/>
       </>
   );

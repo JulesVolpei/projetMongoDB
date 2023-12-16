@@ -5,35 +5,23 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import CompanySearch from "./CompanySearch";
 
-const CompanyList = () => {
-
-    const [entrepriseData, setEntrepriseData] = useState([]);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('http://127.0.0.1:8000/api/entreprise');
-                setEntrepriseData(response.data);
-            } catch (error) {
-                console.error('Erreur lors de la récupération des données :', error);
-            }
-        };
-
-        fetchData();
-    }, []);
-
-    const [response, setUrl] = useGET("");
+const CompanyList = (props) => {
+    const [response, setUrl] = useGET("api/entreprise");
     const [companiesOverview, setCompaniesOverview] = useState([]);
 
     useEffect(() => {
         if (response !== undefined) {
             let tempTab = [];
             response.map((item) => {
+                const address = item.adresse.numero + ' ' + item.adresse.voie + ' ' + item.adresse.codePostal + ' ' + item.adresse.ville;
+
+                let services = item.services.slice(0, 2).join(' ');
+                if (item.services.length > 2) services += '...';
+
                 const companyObj = {
-                    id: item.id_company,
                     name: item.nom,
-                    activity: item.activite,
-                    address: item.adresse,
+                    activity: services,
+                    address: address,
                 };
 
                 tempTab.push(companyObj);
@@ -46,17 +34,19 @@ const CompanyList = () => {
     return (
         <Box sx={{height: '26rem', overflow: 'auto'}}>
             <Grid container>
-                <CompanySearch />
+                <CompanySearch/>
             </Grid>
             <Grid container>
-                {entrepriseData.map((entreprise, index) => (
+                {companiesOverview.map((entreprise, index) => (
                     <Grid item key={index} xs={12} sx={{
                         backgroundColor: '#fff',
                         '&:hover': {
                             backgroundColor: '#dcdcdc',
                             opacity: [0.9, 0.8, 0.7],
                         },
-                    }}>
+                    }}
+                          onClick={() => props.setCompanyName(entreprise.name)}
+                    >
                         <div style={{
                             display: 'block',
                             height: '1px',
@@ -66,13 +56,13 @@ const CompanyList = () => {
                             padding: '0',
                         }}></div>
                         <Box sx={{textTransform: 'uppercase'}}>
-                            {entreprise.nom}
+                            {entreprise.name}
                         </Box>
                         <Box sx={{fontSize: '0.75rem'}}>
-                            {entreprise.ressourcesHumaines.directeur}
+                            {entreprise.activity}
                         </Box>
                         <Box>
-                            {entreprise.contacts.telephone}
+                            {entreprise.address}
                         </Box>
                         <div style={{
                             display: 'block',

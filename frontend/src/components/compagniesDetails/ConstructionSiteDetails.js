@@ -28,7 +28,7 @@ const ConstructionSiteDetails = ({constructionsSite}) => {
 
     return (
         <MUIDataTable
-            title={'Construction Site Data'}
+            title={'Chantiers réalisé'}
             data={data}
             columns={columns}
             options={options}

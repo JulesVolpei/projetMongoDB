@@ -23,7 +23,7 @@ const CompanyDetail = ({enterprise}) => {
                 {nom}
             </Typography>
             <Typography gutterBottom>
-                <p>{services.join(', ')}</p>
+                {services.join(', ')}
             </Typography>
 
             <Grid container spacing={2}>

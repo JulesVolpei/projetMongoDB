@@ -3,11 +3,11 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import CommentPost from "./CommentPost";
 
-const CommentDetails = ({comments}) => {
+const CommentDetails = (props) => {
     return (
         <Grid container spacing={2}>
             <Grid item xs={12}>
-            {comments.map((comment, index) => (
+            {props.comments.map((comment, index) => (
                 <Grid item xs={12} key={index}>
                     <Card sx={{ marginBottom: 2 }}>
                         <CardContent>
@@ -21,7 +21,7 @@ const CommentDetails = ({comments}) => {
             ))}
             </Grid>
             <Grid item xs={12}>
-                <CommentPost/>
+                <CommentPost companyName={props.companyName}/>
             </Grid>
         </Grid>
     );

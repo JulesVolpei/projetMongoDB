@@ -1,13 +1,11 @@
 import {useState, useEffect} from 'react'
+import axios from "axios";
 /**
  * Hook personaliser : Pour tous les requete Get vers les apis.
- * @param {*} url  Uri de l'api
- * @param {*} data Data body si necessaire
- * @param {*} type Type pour
+ * @param {*} resource  resource cible
  */
-function useGET(url, data, headers, api) {
-
-    const [initialRequest, setInitialRequest] = useState({url : url,data: data, headers: headers, api: api});
+function useGET(resource) {
+    const [initialRequest, setInitialRequest] = useState({api : resource});
     const [response, setResponse] = useState();
     let result ;
 
@@ -15,16 +13,15 @@ function useGET(url, data, headers, api) {
     useEffect(() => {
         const callApi = async ()  =>{
             try {
-                if (initialRequest.url !== ''){
-                    console.log(initialRequest.url)
-                    result = await initialRequest.api.get(initialRequest.url, {
-                        headers: initialRequest.headers
-                    })
+                if (initialRequest.api !== ''){
+                    console.log(initialRequest.api)
+                    result = await axios.get('http://127.0.0.1:8000/' + initialRequest.api)
+                    console.log(result.data)
                     setResponse(result.data)
                 }
             } catch (error) {
                 console.log("ERRRRRRRRRRRR",error)
-                localStorage.removeItem('userReducer')
+                setResponse(undefined)
             }
 
         }
