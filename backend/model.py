@@ -50,6 +50,6 @@ class Entreprise(BaseModel):
 class Commentaire(BaseModel):
     entrepriseNom: str
     auteur: str
-    contenu: str
+    contenu: Optional[str]
     dateCreation: datetime
     note: int
