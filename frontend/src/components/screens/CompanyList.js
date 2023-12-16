@@ -6,6 +6,22 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 
 const CompanyList = () => {
+
+    const [entrepriseData, setEntrepriseData] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://127.0.0.1:8000/api/entreprise');
+                setEntrepriseData(response.data);
+            } catch (error) {
+                console.error('Erreur lors de la récupération des données :', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
     const [response, setUrl] = useGET("");
     const [companiesOverview, setCompaniesOverview] = useState([]);
 
@@ -29,21 +45,6 @@ const CompanyList = () => {
 
     const classes = useStyles();
     const dummy = [{name: 'heelo', activity: "bois", address: 'la bas'}, {name: 'coucocu', activity: "plombier", address: 'pas loin'}];
-
-    const [entrepriseData, setEntrepriseData] = useState([]);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('http://127.0.0.1:8000/api/entreprise');
-                setEntrepriseData(response.data);
-            } catch (error) {
-                console.error('Erreur lors de la récupération des données :', error);
-            }
-        };
-
-        fetchData();
-    }, []);
 
     return (
         <>
@@ -71,22 +72,17 @@ const useStyles = makeStyles({
         padding: "0 0.25rem 0",
     },
     elementsBox: {
-        backgroundColor: '#e2ac6c',
-        color: '#ab3833',
-        borderRadius: '7px',
+        backgroundColor: '#fff',
         '&:hover': {
-            backgroundColor: '#bd905b',
+            backgroundColor: '#dcdcdc',
             opacity: [0.9, 0.8, 0.7],
-        },
-        '&.css-16fnxy3-MuiGrid2-root' : {
-            padding: '0 0 0 0.5rem',
         },
     },
     lineSep: {
         display: 'block',
         height: '1px',
         border: '0',
-        borderTop: '0px solid #fff',
+        borderTop: '1px solid black',
         margin: '0.25em 0',
         padding: '0',
     },

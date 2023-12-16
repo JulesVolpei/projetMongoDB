@@ -5,13 +5,12 @@ const Intro = () => {
     const classes = useStyles();
     return(
         <header className={classes.introHeader}>
-            <h1 className={classes.logo}>MongoDbtp</h1>
+            <a href="" className={classes.navLinksA}><h1 className={classes.logo}>MongoDbtp</h1></a>
             <nav className={classes.navLinks}>
                 <ul className={classes.navLinksUl}>
-                    <li className={classes.navLinksLi}><a className={classes.navLinksA} href="#">Accueil</a></li>
-                    <li className={classes.navLinksLi}><a className={classes.navLinksA} href="#">Entreprises</a></li>
-                    <li className={classes.navLinksLi}><a className={classes.navLinksA} href="#">Services</a></li>
-                    <li className={classes.navLinksLi}><a className={classes.navLinksA} href="#">Contact</a></li>
+                    <li className={classes.navLinksLi}><a className={classes.navLinksA} href="entreprise">Entreprises</a></li>
+                    <li className={classes.navLinksLi}><a className={classes.navLinksA} href="services">Services</a></li>
+                    <li className={classes.navLinksLi}><a className={classes.navLinksA} href="contact">Contact</a></li>
                 </ul>
             </nav>
         </header>
