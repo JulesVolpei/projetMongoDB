@@ -1,18 +1,16 @@
 import Grid from "@mui/material/Unstable_Grid2";
 import Box from '@mui/material/Box';
-import useGET from "../../hooks/useGET";
 import {useEffect, useState} from "react";
-import axios from "axios";
 import CompanySearch from "./CompanySearch";
+import {Typography} from "@mui/material";
 
 const CompanyList = (props) => {
-    const [response, setUrl] = useGET("api/entreprise");
     const [companiesOverview, setCompaniesOverview] = useState([]);
 
     useEffect(() => {
-        if (response !== undefined) {
+        if (props.response !== undefined) {
             let tempTab = [];
-            response.map((item) => {
+            props.response.map((item) => {
                 const address = item.adresse.numero + ' ' + item.adresse.voie + ' ' + item.adresse.codePostal + ' ' + item.adresse.ville;
 
                 let services = item.services.slice(0, 2).join(' ');
@@ -28,52 +26,59 @@ const CompanyList = (props) => {
             });
 
             setCompaniesOverview(tempTab);
+        } else {
+            setCompaniesOverview([])
         }
-    }, [response]);
+    }, [props.response]);
 
     return (
         <Box sx={{height: '26rem', overflow: 'auto'}}>
             <Grid container>
-                <CompanySearch/>
+                <CompanySearch setRadius={props.setRadius}/>
             </Grid>
             <Grid container>
-                {companiesOverview.map((entreprise, index) => (
-                    <Grid item key={index} xs={12} sx={{
-                        backgroundColor: '#fff',
-                        '&:hover': {
-                            backgroundColor: '#dcdcdc',
-                            opacity: [0.9, 0.8, 0.7],
-                        },
-                    }}
-                          onClick={() => props.setCompanyName(entreprise.name)}
-                    >
-                        <div style={{
-                            display: 'block',
-                            height: '1px',
-                            border: '0',
-                            borderTop: '1px solid black',
-                            margin: '0.25em 0',
-                            padding: '0',
-                        }}></div>
-                        <Box sx={{textTransform: 'uppercase'}}>
-                            {entreprise.name}
-                        </Box>
-                        <Box sx={{fontSize: '0.75rem'}}>
-                            {entreprise.activity}
-                        </Box>
-                        <Box>
-                            {entreprise.address}
-                        </Box>
-                        <div style={{
-                            display: 'block',
-                            height: '1px',
-                            border: '0',
-                            borderTop: '1px solid black',
-                            margin: '0.25em 0',
-                            padding: '0',
-                        }}></div>
-                    </Grid>
-                ))}
+                {companiesOverview.length > 0 ?
+                    (companiesOverview.map((entreprise, index) => (
+                        <Grid item key={index} xs={12} sx={{
+                            backgroundColor: '#fff',
+                            '&:hover': {
+                                backgroundColor: '#dcdcdc',
+                                opacity: [0.9, 0.8, 0.7],
+                            },
+                        }}
+                              onClick={() => props.setCompanyName(entreprise.name)}
+                        >
+                            <div style={{
+                                display: 'block',
+                                height: '1px',
+                                border: '0',
+                                borderTop: '1px solid black',
+                                margin: '0.25em 0',
+                                padding: '0',
+                            }}></div>
+                            <Box sx={{textTransform: 'uppercase'}}>
+                                {entreprise.name}
+                            </Box>
+                            <Box sx={{fontSize: '0.75rem'}}>
+                                {entreprise.activity}
+                            </Box>
+                            <Box>
+                                {entreprise.address}
+                            </Box>
+                            <div style={{
+                                display: 'block',
+                                height: '1px',
+                                border: '0',
+                                borderTop: '1px solid black',
+                                margin: '0.25em 0',
+                                padding: '0',
+                            }}></div>
+                        </Grid>
+                    )))
+                    :
+                    (
+                        <Typography variant="h8">Sélectionner un radius ou déselectionner le.</Typography>
+                    )}
             </Grid>
         </Box>
     );

@@ -23,11 +23,9 @@ function useGET(resource) {
                 console.log("ERRRRRRRRRRRR",error)
                 setResponse(undefined)
             }
-
         }
 
         callApi();
-
     }, [initialRequest])
 
     return [response, setInitialRequest];

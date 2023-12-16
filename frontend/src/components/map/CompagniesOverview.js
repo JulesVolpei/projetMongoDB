@@ -2,11 +2,25 @@ import Map from "./Map";
 import CompanyList from "./CompanyList";
 import Grid from "@mui/material/Unstable_Grid2";
 import CompaniesDetails from "../compagniesDetails/CompagniesDetails";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import useGET from "../../hooks/useGET";
 
 const CompaniesOverview = () => {
+    const [response, setUrl] = useGET('api/entreprise');
+
     const [companyName, setCompanyName] = useState('');
-    console.log(companyName)
+    const [radius, setRadius] = useState(0);
+    const [latlng, setLatlng] = useState({});
+
+    useEffect(() => {
+        if (radius !== 0) {
+            setUrl({api: `api/entreprises/${latlng.lat}/${latlng.lng}/${radius/1000}`});
+            console.log('tt')
+        }
+        else setUrl({api: 'api/entreprise'});
+        console.log(radius, latlng)
+    }, [radius, latlng]);
+
     return (
         <>
             <Grid container sx={{
@@ -23,10 +37,10 @@ const CompaniesOverview = () => {
                     padding: "0 0.25rem 0 !important",
                     borderRight: 'solid black 0.1rem',
                 }}>
-                    <CompanyList setCompanyName={setCompanyName}/>
+                    <CompanyList setCompanyName={setCompanyName} response={response} setRadius={setRadius}/>
                 </Grid>
                 <Grid item xs={9}>
-                    <Map/>
+                    <Map radius={radius} setLatlng={setLatlng}/>
                 </Grid>
             </Grid>
             {companyName !== '' &&

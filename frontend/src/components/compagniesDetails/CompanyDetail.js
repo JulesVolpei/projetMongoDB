@@ -38,7 +38,7 @@ const CompanyDetail = ({enterprise}) => {
                     <Typography variant="h6" gutterBottom>
                         Localisation:
                     </Typography>
-                    <Typography>{`Coordonées: ${localisation}`}</Typography>
+                    <Typography>{`Coordonées: ${localisation.coordinates}`}</Typography>
                 </Grid>
 
                 <Grid item xs={12} md={6}>
