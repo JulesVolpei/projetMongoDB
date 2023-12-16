@@ -1,23 +1,21 @@
 import React from 'react';
-import {makeStyles} from "@material-ui/core/styles";
 
 const Intro = () => {
-    const classes = useStyles();
     return(
-        <header className={classes.introHeader}>
-            <a href="" className={classes.navLinksA}><h1 className={classes.logo}>MongoDbtp</h1></a>
-            <nav className={classes.navLinks}>
-                <ul className={classes.navLinksUl}>
-                    <li className={classes.navLinksLi}><a className={classes.navLinksA} href="entreprise">Entreprises</a></li>
-                    <li className={classes.navLinksLi}><a className={classes.navLinksA} href="services">Services</a></li>
-                    <li className={classes.navLinksLi}><a className={classes.navLinksA} href="contact">Contact</a></li>
+        <header style={styles.introHeader}>
+            <a href="" style={styles.navLinksA}><h1 style={styles.logo}>MongoDbtp</h1></a>
+            <nav style={styles.navLinks}>
+                <ul style={styles.navLinksUl}>
+                    <li style={styles.navLinksLi}><a style={styles.navLinksA} href="entreprise">Entreprises</a></li>
+                    <li style={styles.navLinksLi}><a style={styles.navLinksA} href="services">Services</a></li>
+                    <li style={styles.navLinksLi}><a style={styles.navLinksA} href="contact">Contact</a></li>
                 </ul>
             </nav>
         </header>
     );
 }
 
-const useStyles = makeStyles({
+const styles = {
     introHeader : {
         backgroundColor: '#e2ac6c',
         padding: '15px',
@@ -48,6 +46,6 @@ const useStyles = makeStyles({
         fontWeight: 'bold',
         fontSize: '16px',
     },
-})
+}
 
 export default Intro;

@@ -1,9 +1,13 @@
 import CompanieDetail from "./CompanyDetail";
 import ConstructionSiteDetails from "./ConstructionSiteDetails";
+import CommentDetails from "./CommentDetails";
+import {Button, Card, CardContent} from "@mui/material";
+import Grid from "@mui/material/Grid";
+import {useState} from "react";
 
 
 const CompaniesDetails = () => {
-    const sampleEnterprise = {
+    const enterprise = {
         nom: 'chez moi',
         adresse: { "numero": 3, "voie": "Route de la Garenne", "codePostal": 44700, "ville": "Nantes"},
         localisation: [6.4896, 3.646464],
@@ -33,12 +37,59 @@ const CompaniesDetails = () => {
             services: ["Toitures", "Terrasses et patios", "Fondations et béton"]
         }
     ]
+
+    const comments = [{
+            "entrepriseNom": "Lihon BTP Corporation",
+            "auteur": "Adam Pacool",
+            "contenu": "Ma femme a fait appel à cette entreprise pour de simples problèmes de toiture ... Bonjour les dégâts !",
+            "dateCreation": new Date("2020-05-11"),
+            "note": 1
+        },
+        {
+            "entrepriseNom": "Lihon BTP Corporation",
+            "auteur": "François Lihon",
+            "contenu": null,
+            "dateCreation": new Date("2020-02-10"),
+            "note": 5
+        }
+    ]
+
+    const [selectedComponent, setSelectedComponent] = useState('company');
+
+    const renderComponent = () => {
+        switch (selectedComponent) {
+            case 'company':
+                return <CompanieDetail enterprise={enterprise} />;
+            case 'construction':
+                return <ConstructionSiteDetails constructionsSite={constructionsSite} />;
+            case 'comments':
+                return <CommentDetails comments={comments} />;
+            default:
+                return null;
+        }
+    };
+
     return (
-        <>
-            <p>dddd</p>
-            <CompanieDetail enterprise={sampleEnterprise}/>
-            <ConstructionSiteDetails constructionsSite={constructionsSite}/>
-        </>
+        <Card sx={{ maxWidth: '90%', margin: 'auto', marginTop: 5 }}>
+            <CardContent>
+                <Grid container spacing={1}>
+                    <Grid item xs={12} sm={2}>
+                        <Button variant="contained" sx={{margin: '0 0 1rem 0'}} onClick={() => setSelectedComponent('company')} fullWidth>
+                            Entreprise
+                        </Button>
+                        <Button variant="contained" sx={{margin: '0 0 1rem 0'}}  onClick={() => setSelectedComponent('construction')} fullWidth>
+                            Chantiers
+                        </Button>
+                        <Button variant="contained" sx={{margin: '0 0 1rem 0'}}  onClick={() => setSelectedComponent('comments')} fullWidth>
+                            Commentaires
+                        </Button>
+                    </Grid>
+                    <Grid item xs={12} sm={10} sx={{ display: 'flex', justifyContent: 'center' }}>
+                        {renderComponent()}
+                    </Grid>
+                </Grid>
+            </CardContent>
+        </Card>
     );
 }
 
